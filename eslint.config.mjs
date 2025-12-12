@@ -72,12 +72,6 @@ const eslintConfig = [
               group: "external",
               position: "before",
             },
-            { pattern: "{zustand}", group: "external", position: "before" },
-            {
-              pattern: "{redux*,redux*/**,@redux*/,@redux*/**}",
-              group: "external",
-              position: "before",
-            },
 
             // 내부(alias) — Next 관용 디렉터리 우선 정렬
             { pattern: "@/app/**", group: "internal", position: "before" },
