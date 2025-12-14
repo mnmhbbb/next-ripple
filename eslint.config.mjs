@@ -1,38 +1,28 @@
-import { dirname } from "path";
-import { fileURLToPath } from "url";
-import { FlatCompat } from "@eslint/eslintrc";
-
-import importPlugin from "eslint-plugin-import";
-import unusedImports from "eslint-plugin-unused-imports";
+import { defineConfig, globalIgnores } from "eslint/config";
+import nextVitals from "eslint-config-next/core-web-vitals";
+import nextTs from "eslint-config-next/typescript";
 import tseslint from "typescript-eslint";
+import unusedImports from "eslint-plugin-unused-imports";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-});
-
-const eslintConfig = [
+const eslintConfig = defineConfig([
   // 1) Next 기본 권장 규칙
-  ...compat.extends("next/core-web-vitals", "next/typescript"),
+  ...nextVitals,
+  ...nextTs,
 
   // 2) 전역 ignore
-  {
-    ignores: [
-      "node_modules/**",
-      ".next/**",
-      "out/**",
-      "build/**",
-      "next-env.d.ts",
-      "dist/**",
-      "coverage/**",
-      ".cursor/**",
-      "pnpm-lock.yaml",
-      "yarn.lock",
-      "package-lock.json",
-    ],
-  },
+  globalIgnores([
+    "node_modules/**",
+    ".next/**",
+    "out/**",
+    "build/**",
+    "next-env.d.ts",
+    "dist/**",
+    "coverage/**",
+    ".cursor/**",
+    "pnpm-lock.yaml",
+    "yarn.lock",
+    "package-lock.json",
+  ]),
 
   // 3) 추가 규칙
   {
@@ -42,7 +32,6 @@ const eslintConfig = [
     },
 
     plugins: {
-      import: importPlugin,
       "unused-imports": unusedImports,
     },
     settings: {
@@ -113,6 +102,6 @@ const eslintConfig = [
       "@typescript-eslint/no-explicit-any": "warn",
     },
   },
-];
+]);
 
 export default eslintConfig;
