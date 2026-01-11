@@ -2,7 +2,7 @@
 
 import { redirect } from "next/navigation";
 
-import { createClient } from "@/utils/supabase/server";
+import { createClient } from "@/shared/utils/supabase/server";
 
 export async function signInWithPassword(
   _prevState: { error?: string } | null,

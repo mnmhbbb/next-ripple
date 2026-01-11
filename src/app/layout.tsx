@@ -4,7 +4,9 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 
 import "./globals.css";
-import Providers from "@/providers/providers";
+
+import GlobalLayout from "@/shared/components/layout/global-layout";
+import Providers from "@/shared/providers";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,7 +31,10 @@ export default function RootLayout({
   return (
     <html lang="ko-KR">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <Providers>{children}</Providers>
+        <Providers>
+          <GlobalLayout>{children}</GlobalLayout>
+        </Providers>
+        <div id="modal-root"></div>
       </body>
     </html>
   );

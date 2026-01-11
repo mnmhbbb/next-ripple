@@ -2,7 +2,7 @@
 
 import { redirect } from "next/navigation";
 
-import { createClient } from "@/utils/supabase/server";
+import { createClient } from "@/shared/utils/supabase/server";
 
 export async function signUp(_prevState: { error?: string } | null, formData: FormData) {
   const email = formData.get("email") as string;

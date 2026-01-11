@@ -9,7 +9,7 @@
     "lint": "eslint",
     "format": "prettier --cache --write .",
     "format:check": "prettier --check .",
-    "type-gen": "supabase gen types typescript --project-id \"koqbpiiixxsovyfuquse\" --schema public > ./src/utils/supabase/database.types.ts"
+    "type-gen": "supabase gen types typescript --project-id \"koqbpiiixxsovyfuquse\" --schema public > ./src/shared/utils/supabase/database.types.ts"
   },
   "dependencies": {
     "@supabase/ssr": "^0.8.0",
