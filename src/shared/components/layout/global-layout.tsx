@@ -26,7 +26,11 @@ export default async function GlobalLayout({ children }: { children: ReactNode }
             <div className="font-bold">ripple sns</div>
           </Link>
           <div className="flex items-center gap-2">
-            {user ? <span>{user.email}</span> : <Link href="/sign-in">로그인</Link>}
+            {user ? (
+              <Link href={`/profile/${user.id}`}>{user.email}</Link>
+            ) : (
+              <Link href="/sign-in">로그인</Link>
+            )}
           </div>
         </div>
       </header>
