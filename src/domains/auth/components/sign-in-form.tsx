@@ -2,7 +2,7 @@
 
 import { useActionState } from "react";
 
-import { signInWithPassword } from "@/app/sign-in/actions";
+import { signInWithPassword } from "@/app/(auth)/sign-in/actions";
 
 export function SignInForm() {
   const [state, formAction, isPending] = useActionState(signInWithPassword, null);

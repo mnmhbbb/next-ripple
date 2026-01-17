@@ -2,7 +2,7 @@
 
 import { useActionState } from "react";
 
-import { signUp } from "@/app/sign-up/actions";
+import { signUp } from "@/app/(auth)/sign-up/actions";
 
 export function SignUpForm() {
   const [state, formAction, isPending] = useActionState(signUp, null);
