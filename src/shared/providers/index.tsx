@@ -5,8 +5,8 @@ import { type ReactNode } from "react";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
+import AuthSync from "@/shared/providers/auth-sync";
 import { getQueryClient } from "@/shared/providers/lib/get-query-client";
-import ModalProvider from "@/shared/providers/modal-provider";
 
 export default function Providers({ children }: { children: ReactNode }) {
   const queryClient = getQueryClient();
@@ -14,7 +14,8 @@ export default function Providers({ children }: { children: ReactNode }) {
   return (
     <QueryClientProvider client={queryClient}>
       <ReactQueryDevtools />
-      <ModalProvider>{children}</ModalProvider>
+      <AuthSync />
+      {children}
     </QueryClientProvider>
   );
 }
