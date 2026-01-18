@@ -25,18 +25,6 @@ export default function AuthSync() {
     };
 
     initSession();
-
-    // 인증 상태 변경 구독 (로그인/로그아웃 시 자동 동기화)
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, session) => {
-      setUserId(session?.user.id ?? null);
-    });
-
-    // 언마운트 시 구독 해제
-    return () => {
-      subscription.unsubscribe();
-    };
   }, [setUserId]);
 
   return null;
