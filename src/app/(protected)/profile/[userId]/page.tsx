@@ -1,4 +1,5 @@
 import ProfileInfo from "@/domains/profile/components/info";
+import SignOutButton from "@/domains/profile/components/sign-out-button";
 import { getServerUserId } from "@/shared/utils/supabase/auth";
 
 /**
@@ -14,5 +15,14 @@ export default async function ProfilePage({ params }: { params: Promise<{ userId
   // 본인 프로필인지 판단
   const isMine = currentUserId === userId;
 
-  return <ProfileInfo userId={userId} isMine={isMine} />;
+  return (
+    <>
+      <ProfileInfo userId={userId} isMine={isMine} />
+      {isMine && (
+        <div className="mt-2 flex justify-center">
+          <SignOutButton />
+        </div>
+      )}
+    </>
+  );
 }

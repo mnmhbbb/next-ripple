@@ -5,7 +5,6 @@ import Link from "next/link";
 
 import { useQuery } from "@tanstack/react-query";
 
-import SignOutButton from "@/domains/profile/components/sign-out-button";
 import { profileQueryOptions } from "@/domains/profile/queries";
 import { Button } from "@/shared/components/ui/button";
 
@@ -41,7 +40,6 @@ export default function ProfileInfo({ userId, isMine }: { userId: string; isMine
               프로필 수정
             </Button>
           </Link>
-          <SignOutButton />
         </div>
       )}
     </div>

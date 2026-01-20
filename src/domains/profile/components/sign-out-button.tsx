@@ -3,8 +3,6 @@
 import { useEffect } from "react";
 import { useActionState } from "react";
 
-import { useRouter } from "next/navigation";
-
 import { signOut } from "@/app/(protected)/profile/actions";
 
 import { Button } from "@/shared/components/ui/button";
@@ -13,17 +11,18 @@ import { createClient } from "@/shared/utils/supabase/client";
 
 /**
  * 로그아웃 버튼 컴포넌트
- * 서버 액션을 사용하여 로그아웃 처리 후 클라이언트에서 세션 확인 및 store 업데이트
+ * 서버 액션에서 직접 redirect를 처리하므로 클라이언트에서는 에러만 표시
+ * 에러 발생 시 세션을 다시 확인하여 store를 동기화
  */
 export default function SignOutButton() {
-  const router = useRouter();
   const setUserId = useSetUserId();
   const [state, formAction, isPending] = useActionState(signOut, null);
 
-  // 서버 액션 성공 시 클라이언트에서 세션 확인하여 store 업데이트 후 리다이렉트
+  // 에러 발생 시 세션을 다시 확인하여 store를 동기화
+  // (로그아웃 실패 시 세션이 여전히 유효할 수 있음)
   useEffect(() => {
-    if (state?.success) {
-      const updateSession = async () => {
+    if (state?.error) {
+      const syncSession = async () => {
         const supabase = createClient();
         const {
           data: { session },
@@ -31,14 +30,14 @@ export default function SignOutButton() {
         setUserId(session?.user.id ?? null);
       };
 
-      updateSession();
-      router.push("/sign-in");
+      syncSession();
     }
-  }, [state, router, setUserId]);
+    // 성공 시에는 서버에서 redirect()가 발생하므로 컴포넌트가 언마운트됨
+  }, [state, setUserId]);
 
   return (
     <form action={formAction}>
-      {state?.error && <div className="text-sm text-red-500 mb-2">{state.error}</div>}
+      {state?.error && <div className="mb-2 text-sm text-red-500">{state.error}</div>}
       <Button type="submit" variant={"outline"} className="cursor-pointer" disabled={isPending}>
         {isPending ? "로그아웃 중..." : "로그아웃"}
       </Button>
